@@ -30,9 +30,9 @@ ip name-server {{ name_server }}
 !
 {% if interfaces %}
 {% for intf in interfaces %}
-interface {{ intf.name }}
-{% for ip_addr in intf.ip_addresses %}
-   ip address {{ intf.ip_addr }}
+interface {{ intf['name'] }}
+{% for ip_addr in intf['ip_addresses'] %}
+   ip address {{ intf['ip_addr'] }}
 {% endfor %}
 {% endfor %}
 {% endif %}
