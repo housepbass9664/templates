@@ -32,7 +32,7 @@ ip name-server {{ name_server }}
 {% for intf in interfaces %}
 interface {{ intf['name'] }}
 {% for ip_addr in intf['ip_addresses'][0] %}
-   ip address {{ ip_addr['address'] }}
+   ip address {{ ip_addr }}
 {% endfor %}
 {% endfor %}
 {% endif %}
