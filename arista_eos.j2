@@ -33,6 +33,8 @@ interface {{ intf['name'] }}
 {% for ip_addr in intf['ip_addresses'] %}
    ip address {{ ip_addr.address }}
 !
+{% else %}
+!
 {% endfor %}{% endif %}{% endfor %}{% endif %}
 no ip routing
 !
