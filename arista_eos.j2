@@ -30,10 +30,10 @@ management api netconf
 !
 interface {{ intf['name'] }}
 {% if intf['description'] %}
-   description {{ intf['description'] %}
+   description {{ intf['description'] }}
 {% endif %}
 {% if intf['mtu'] %}
-   mtu {{ intf['mtu'] %}
+   mtu {{ intf['mtu'] }}
 {% endif %}
 {% if intf['ip_addresses'] %}
 {% for ip_addr in intf['ip_addresses'] %}
