@@ -29,6 +29,12 @@ management api netconf
 {% for intf in interfaces %}
 !
 interface {{ intf['name'] }}
+{% if intf['description'] %}
+   description {{ intf['description'] %}
+{% endif %}
+{% if intf['mtu'] %}
+   mtu {{ intf['mtu'] %}
+{% endif %}
 {% if intf['ip_addresses'] %}
 {% for ip_addr in intf['ip_addresses'] %}
    ip address {{ ip_addr.address }}
