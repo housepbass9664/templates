@@ -1,3 +1,6 @@
+! Command: show running-config
+! device: spine (cEOSLab, EOS-4.26.2F-23563874.4262F (engineering build))
+!
 no aaa root
 !
 username admin privilege 15 role network-admin secret sha512 $6$UqWIykK6qZ4sDDHF$bBVCUG7HLGt/n9be7FXKi0aqrC4nGc/PM3ViGvLZB8LnW5Za88hYVgOFqL22tmCUSN0CbAec1ASQ0eSFkcFpH1
@@ -8,8 +11,8 @@ service routing protocols model multi-agent
 !
 hostname {{ hostname }}
 !
-{% for ntp_server in config_context['ntp_servers']%}
-ntp server {{ ntp_server }}
+{% for name_server in config_context['name_servers']%}
+ip name-server vrf default {{ name_server }}
 {% endfor %}
 !
 spanning-tree mode mstp
@@ -36,8 +39,8 @@ interface {{ intf['name'] }}
 {% endfor %}{% endfor %}{% endif %}
 no ip routing
 !
-{% for name_server in config_context['name_servers']%}
-ip name-server vrf default {{ name_server }}
+{% for ntp_server in config_context['ntp_servers']%}
+ntp server {{ ntp_server }}
 {% endfor %}
 !
 end
