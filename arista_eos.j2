@@ -32,8 +32,8 @@ management api netconf
 interface {{ intf['name'] }}
 {% for ip_addr in intf['ip_addresses'] %}
    ip address {{ ip_addr.address }}
-{% endfor %}{% endfor %}{% endif %}
 !
+{% endfor %}{% endfor %}{% endif %}
 no ip routing
 !
 {% for name_server in config_context['name_servers']%}
