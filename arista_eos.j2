@@ -9,7 +9,7 @@ service routing protocols model multi-agent
 hostname {{ hostname }}
 !
 {% for ntp_server in config_context['ntp_servers']%}
-ntp server vrf default {{ ntp_server }}
+ntp server {{ ntp_server }}
 {% endfor %}
 !
 spanning-tree mode mstp
@@ -37,7 +37,7 @@ interface {{ intf['name'] }}
 no ip routing
 !
 {% for name_server in config_context['name_servers']%}
-ip name-server {{ name_server }}
+ip name-server vrf default {{ name_server }}
 {% endfor %}
 !
 end
