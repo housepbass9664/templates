@@ -6,6 +6,18 @@ transceiver qsfp default-mode 4x10G
 !
 service routing protocols model multi-agent
 !
+hostname {{ hostname }}
+!
+{% for ntp_server in config_context['ntp_servers']%}
+ntp server vrf default {{ ntp_server }}
+{% endfor %}
+!
+spanning-tree mode mstp
+!
+{% if config_context['timezone'] %}
+clock timezone {{ config_context['timezone'] }}
+{% endif %}
+!
 management api http-commands
    no shutdown
 !
@@ -15,25 +27,18 @@ management api gnmi
 management api netconf
    transport ssh default
 !
-hostname {{ hostname }}
-!
-{% if config_context['timezone'] %}
-clock timezone {{ config_context['timezone'] }}
-{% endif %}
-{% for ntp_server in config_context['ntp_servers']%}
-ntp server {{ ntp_server }}
-{% endfor %}
-!
-{% for name_server in config_context['name_servers']%}
-ip name-server {{ name_server }}
-{% endfor %}
-!
 {% if interfaces %}
 {% for intf in interfaces %}
 interface {{ intf['name'] }}
 {% for ip_addr in intf['ip_addresses'] %}
    ip address {{ ip_addr.address }}
+{% endfor %}{% endfor %}{% endif %}
+!
+no ip routing
+!
+{% for name_server in config_context['name_servers']%}
+ip name-server {{ name_server }}
 {% endfor %}
 !
-{% endfor %}
-{% endif %}
+end
+
